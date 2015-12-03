@@ -1,0 +1,45 @@
+@extends('Tema1.main')
+
+@section('content')
+
+     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+        @include('flash::message')
+        <div class="panel">
+        <header class="panel-heading">
+             <h1 class="pull-left">$MODEL_NAME_PLURAL$</h1>
+             <a class="btn btn-primary pull-right" style="margin-top: 25px" href="{!! route('$MODEL_NAME_PLURAL_CAMEL$.create') !!}">Novo</a>
+        </header>
+       
+
+            @if($$MODEL_NAME_PLURAL_CAMEL$->isEmpty())
+                <div class="well text-center">Sem $MODEL_NAME_PLURAL$ encontrados.</div>
+            @else
+               <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                    $FIELD_HEADERS$
+                    <th width="50px">Accoes</th>
+                    </thead>
+                    <tbody>
+                     $SEARCH$
+                    @foreach($$MODEL_NAME_PLURAL_CAMEL$ as $$MODEL_NAME_CAMEL$)
+                        <tr>
+                            $FIELD_BODY$
+                            <td>
+                                <a href="{!! route('$MODEL_NAME_PLURAL_CAMEL$.edit', [$$MODEL_NAME_CAMEL$->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a href="{!! route('$MODEL_NAME_PLURAL_CAMEL$.delete', [$$MODEL_NAME_CAMEL$->id]) !!}" onclick="return confirm('Tem certeza que pretende apagar este $MODEL_NAME$?')"><i class="glyphicon glyphicon-remove"></i></a>
+                            </td>
+                       </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                </div>
+            @endif
+        </div>
+        </div>
+    </div>
+   </div>
+@endsection
